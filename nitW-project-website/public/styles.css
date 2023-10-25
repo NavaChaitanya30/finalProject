@@ -1,0 +1,203 @@
+body{
+    padding-top: 90px;
+    background-color: #dfdfdf;
+    font-family:monospace;
+
+}
+header{
+    position: fixed;
+    top: 0;
+    width: 99%;
+    text-align  : center;
+    color: #000000;
+    background-color: #516091;
+    box-shadow: 2px 5px 8px #6b6a6a;
+    border-radius: 10px;
+
+}
+section{
+    width: 95%;
+   padding: 20px;
+    margin: 20px;
+    justify-content: flex-end;
+    color: #000000;
+    background-color: #516091;
+    box-shadow: 2px 5px 8px #6e6d6d;
+    border-radius: 10px;
+
+}
+section form{
+    width: 30%;
+}
+.team-list {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+}
+
+.team-list li {
+    text-align: center;
+    margin: 10px;
+}
+
+.team-list img {
+    opacity: 1; /* Full opacity for images */
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.team-list img:hover , li p:hover{
+    transform: scale(1.1);
+}
+
+.team-list p {
+    margin: 5px;
+}
+.team-list h4 {
+    /* margin: 5px; */
+    /* color: rgba(112, 231, 14, 0.533); */
+    font-family: 'Courier New', Courier, monospace;
+}
+header h1,section h2,li p{
+    color: #d789d7;
+    font-size: 20px;
+    
+}
+p,li{
+    color: #ffffff;
+    font-size: 20px;
+    /* font-style: italic; */
+    font-family: serif;
+    font-weight: bold;
+}
+.button {
+    display: inline-block;
+    background-color: #0073e6;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #d789d7;
+}
+#architecture img{
+    opacity: 1; /* Full opacity for images */
+    border-radius: 10px;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+
+
+
+}
+#architecture png{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+}
+.form {
+    background-color: #000000c4;
+    color: #ffffff;
+    padding: 20px;
+    
+    width: 30%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the form horizontally */
+    border-radius: 10px;
+}
+
+.form  label {
+    color: #d789d7;
+}
+
+.form input {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #d789d7;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    width: 100%; /* Input fields take the full width of the form */
+}
+
+.form button {
+    background-color: #516091;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%; /* Button takes the full width of the form */
+}
+
+.form button:hover {
+    background-color: #d789d7;
+    color: #000000;
+}
+.cyberattack-frame {
+    border: 2px solid #ff0000; /* Red border to indicate an alert */
+    padding: 20px;
+    border-radius: 10px;
+    background-image: url('images/attack_bg.jpeg'); /* Add your background image URL */
+    background-size: cover; /* Scale the image to cover the frame */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    background-position: center; /* Center the image */
+    background-color: #f5f5f5; /* Light gray background color */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Red shadow for emphasis */
+    margin: 20px 0;
+}
+
+.cyberattack-frame h2 {
+    color: #ff0000; /* Red text color for the title */
+}
+
+.cyberattack-frame p {
+    color: #333; /* Dark gray text color */
+}
+.ml-model-frame {
+    border: 2px solid #3498db; /* Blue border for the ML model frame */
+    padding: 20px;
+    border-radius: 10px;
+    background-image: url('images/ml_bg.jpg'); /* Add your background image URL */
+    background-size: cover; /* Scale the image to cover the frame */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    background-position: center; /* Center the image */
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Blue shadow for emphasis */
+    margin: 20px 0;
+}
+
+.ml-model-frame h2 {
+    color: #3498db; /* Blue text color for the title */
+}
+
+.ml-model-frame p {
+    color: #333; /* Dark gray text color */
+}
+.token {
+    border: 2px solid #3498db; /* Blue border for the ML model frame */
+    padding: 20px;
+    border-radius: 10px;
+    background-image: url('images/token_bg.jpeg'); /* Add your background image URL */
+    background-size: cover; /* Scale the image to cover the frame */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    background-position: center; /* Center the image */
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Blue shadow for emphasis */
+    margin: 20px 0;
+}
+
+.token h2 {
+    color: #3498db; /* Blue text color for the title */
+}
+
+.token p {
+    color: #333; /* Dark gray text color */
+}

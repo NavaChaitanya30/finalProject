@@ -1,0 +1,83 @@
+
+    <section>
+        <div class="simulation-box">
+            <h3>Registration Form</h3>
+            <form id="registration-form" action="http://localhost:4000/users" method="POST">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="orgName">Organization Name:</label>
+                    <select id="orgName" name="orgName" required>
+                        <option value="Org1">Org1</option>
+                        <option value="Org2">Org2</option>
+                    </select>
+                </div>
+                <button type="submit" class="button">Register</button>
+            </form>
+        </div>
+        <div id="response"></div>
+    </section>
+    
+    <!-- Display the server response -->
+    
+    
+    <script>
+        // Client-side form submission
+ // Client-side form submission
+document.getElementById("registration-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const orgName = document.getElementById("orgName").value;
+    const formData = { username: username, orgName: orgName };
+    console.log(formData);
+
+    try {
+        // Send a POST request to the server
+        const response = await fetch('http://localhost:4000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Set content type to JSON
+            },
+            body: JSON.stringify(formData), // Convert data to JSON
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Process the response
+        const data = await response.json();
+        const responseElement = document.getElementById('response');
+        responseElement.innerHTML = `
+            <p>Message: ${data.message}</p>
+            
+            <p>Token:</p>
+    <div>
+        <input type="text" id="token" value="${data.token}" readonly>
+        <button id="copyTokenButton">Copy Token</button>
+    </div>
+`;
+
+
+    } catch (error) {
+        // Handle any errors that occur during the request
+        console.error('Error:', error);
+        const responseElement = document.getElementById('response');
+        responseElement.innerHTML = '<p>An error occurred while processing your request.</p>';
+    }
+});
+
+// Add an event listener to the "Copy Token" button
+const copyTokenButton = document.getElementById('copyTokenButton');
+copyTokenButton.addEventListener('click', () => {
+    const tokenInput = document.getElementById('token');
+    tokenInput.select();
+    document.execCommand('copy');
+    copyTokenButton.textContent = 'Token Copied!';
+});
+ 
+    </script>
+

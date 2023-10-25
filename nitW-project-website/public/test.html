@@ -1,0 +1,31 @@
+<input type="file" id="csv-file-input">
+<table id="csv-data"></table>
+
+<script>
+  document.getElementById('csv-file-input').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const contents = e.target.result;
+      const lines = contents.split('\n');
+
+      // Process the CSV data (e.g., display in a table)
+      const table = document.getElementById('csv-data');
+      table.innerHTML = '';
+
+      lines.forEach(function (line) {
+        const row = table.insertRow();
+        const cells = line.split(',');
+
+        cells.forEach(function (cell) {
+          const cellElement = document.createElement('td');
+          cellElement.textContent = cell;
+          row.appendChild(cellElement);
+        });
+      });
+    };
+
+    reader.readAsText(file);
+  });
+</script>

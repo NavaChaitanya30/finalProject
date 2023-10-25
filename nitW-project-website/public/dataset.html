@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulation</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <!-- <script src="script.js"></script> -->
+    <!-- <style>
+    .packet {
+    width: 300px;
+    height: 200px;
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    position: relative;
+    border-radius: 5px;
+}
+
+.packet::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #00f;
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+.packet::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 80px;
+    width: 50px;
+    height: 50px;
+    background-color: #ff0;
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+.packet div {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    right: 10px;
+    text-align: center;
+}
+
+    </style> -->
+</head>
+<body>
+    <header>
+        <h1>Anomaly-Based Intrusion Detection System</h1>
+        <h2>Using Ensemble Machine Learning and Blockchain</h2>
+    </header>
+<section id="dataset-upload-section">
+    <div id="dataset-content" style="display: flex;">
+        <form action="/upload" method="post" enctype="multipart/form-data" class="form" id="upload-form">
+            <h3>Upload a Dataset</h3>
+            <p>Upload a dataset with the following columns:</p>
+            <ul>
+                <li>IAT</li>
+                <li>Magnitude</li>
+                <li>syn_count</li>
+                <li>AVG</li>
+                <li>Min</li>
+                <li>Tot size</li>
+                <li>syn_flag_number</li>
+                <li>Header_Length</li>
+                <li>SourceIP</li>
+                <li>DestinationIP</li>
+                <li>Max</li>
+            </ul>
+
+            <input type="file" name="file" accept=".csv, .xlsx" required id="file-input">
+            <label for="select-row">Select a Row:</label>
+            <select id="select-row" name="selectedRow">
+                <!-- Options will be added dynamically using JavaScript -->
+            </select>
+        </form>
+
+    </div>
+</section>
+    <!-- Form to display row data -->
+    <section id="data-form" style="display: none;" class="ml-model-frame">
+        <form id="manual-form" class="form" action="/packet" method="post">
+            
+            <h2>Prepared Data packet with selected row from dataset</h2>
+            <div class="form-group">
+                <label for="IAT">IAT (Inter-Arrival Time):</label>
+                <input type="number" id="IAT" name="IAT" readonly>
+            </div>
+            <div class="form-group">
+                <label for="Magnitue">Magnitude:</label>
+                <input type="text" id="Magnitue" name="Magnitue" readonly>
+            </div>
+            <div class="form-group">
+                <label for="syn_count">Syn Count:</label>
+                <input type="text" id="syn_count" name="syn_count" readonly >
+            </div>
+            <div class="form-group">
+                <label for="AVG">Average:</label>
+                <input type="text" id="AVG" name="AVG" readonly >
+            </div>
+            <!-- Add more input fields for the remaining features -->
+            <div class="form-group">
+                <label for="Min">Min:</label>
+                <input type="text" id="Min" name="Min" readonly>
+            </div>
+            <div class="form-group">
+                <label for="Tot size">Total Size:</label>
+                <input type="text" id="Tot size" name="Tot size" readonly>
+            </div>
+            <div class="form-group">
+                <label for="syn_flag_number">Syn Flag Number:</label>
+                <input type="text" id="syn_flag_number" name="syn_flag_number" readonly>
+            </div>
+            <div class="form-group">
+                <label for="Header_Length">Header Length:</label>
+                <input type="text" id="Header_Length" name="Header_Length" readonly>
+            </div>
+            <div class="form-group">
+                <label for="SourceIP">SourceIP:</label>
+                <input type="text" id="SourceIP" name="SourceIP" >
+            </div>
+            <div class="form-group">
+                <label for="DestinationIP">DestinationIP:</label>
+                <input type="text" id="DestinationIP" name="DestinationIP" >
+            </div>
+            <div class="form-group">
+                <label for="Max">Max:</label>
+                <input type="text" id="Max" name="Max" readonly>
+           
+            </div>
+            <button type="submit" class="button">click to farword this data packet into network</button>
+           </form>
+        </section>
+        <section class="cyberattack-frame" id="intruder-section" style="display: none;">
+            <form id="form"  class="form">
+                <h2>Intrusion Detected :</h2>
+                <div class="form-group">
+                    <label for="ipAddress">ipAddress :</label>
+                    <input type="text" id="ipAddress" name="ipAddress" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="attackType">attackType:</label>
+                    <input type="text" id="attackType" name="attackType" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="timeStamp">timeStamp:</label>
+                    <input type="text" id="timeStamp" name="timeStamp" value="" readonly>
+                </div>
+                
+                
+               
+                <button type="submit" class="button">Create a Transaction</button>
+            </form>
+        </section>
+        <section id="register-section" style="display: none;">
+            
+                <div class="simulation-box">
+                    
+                    <form class="form" id="registration-form" action="http://localhost:4000/users" method="POST">
+                        <h3>Registration Form</h3>
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgName">Organization Name:</label>
+                            <select id="orgName" name="orgName" required>
+                                <option value="Org1">Org1</option>
+                                <option value="Org2">Org2</option>
+                            </select>
+                        </div>
+    
+                        <button type="submit" class="button">Register</button>
+                    </form>
+                   
+    
+                </div>
+                
+           
+        </section  >
+        <div id="reg-response" style="text-align: center;"></div>
+        <section id="jwtTokenField" style="display: none;" class="token">
+            
+            <form class="form" id="invoke-transaction-form">
+                <h3>Secret Token</h3>
+                <div class="form-group">
+                    <label for="jwtToken">JWT Token:</label>
+                    <input type="text" id="jwtToken" name="jwtToken" readonly>
+                </div>
+                <button type="submit" class="button">Authenticate & Invoke Transaction</button>
+            </form>
+            
+    
+        </section>
+        <section>
+            <div id="transaction-response" style="text-align: center; "></div>
+        </section>
+        
+
+
+<script>
+    const fileInput = document.getElementById('file-input');
+    const uploadForm = document.getElementById('upload-form');
+    const selectRow = document.getElementById('select-row');
+    const dataFormSection = document.getElementById('data-form');
+    var rows = '';
+    // Define the required columns
+    const requiredColumns = [
+        'IAT', 'Magnitue', 'syn_count', 'AVG',
+        'Min', 'Tot size', 'syn_flag_number',
+        'Header_Length', 'SourceIP', 'DestinationIP',
+        'Max'
+    ];
+    // Array to store references to the input fields
+const inputFields = [];
+
+// Populate the inputFields array
+requiredColumns.forEach(column => {
+    const inputField = document.getElementById(column);
+    if (inputField) {
+        inputFields.push(inputField);
+    }
+});
+
+
+    // const inputFields = requiredColumns.map(column => document.getElementById(column));
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                const contents = event.target.result;
+                const lines = contents.split('\n');
+                rows=lines;
+                // Check if the first line (header) contains all required columns
+                const headerColumns = lines[0].split(',');
+
+                const columnsAreValid = requiredColumns.every(column => headerColumns.includes(column));
+
+                if (columnsAreValid) {
+                    // Calculate the number of rows
+                    const rowCount = lines.length - 1; // Exclude header
+                    alert(`File is valid. Number of rows: ${rowCount}`);
+                    // Enable the upload button
+                    // uploadButton.disabled = false;
+                    // Populate the select element with row numbers
+                    populateSelect(rowCount);
+                } else {
+                    alert('File does not contain all required columns.');
+                    // Disable the upload button
+                    // uploadButton.disabled = true;
+                }
+            };
+
+            reader.readAsText(file);
+        }
+    });
+
+    // Function to populate the select element with row numbers
+    function populateSelect(rowCount) {
+        selectRow.innerHTML = ''; // Clear existing options
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.text = 'Select a Row';
+        selectRow.appendChild(defaultOption);
+
+        for (let i = 0; i < rowCount; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.text = `Row ${i + 1}`;
+            selectRow.appendChild(option);
+        }
+    }
+
+    // Event listener for the select element
+selectRow.addEventListener('change', () => {
+    const selectedRowIndex = selectRow.value;
+    if (selectedRowIndex !== '') {
+        dataFormSection.style.display='block';
+        displayRowData(selectedRowIndex);
+        dataFormSection.scrollIntoView({behavior:"smooth"})
+    } else {
+        clearFormFields();
+    }
+});
+
+// Function to display row data in the form
+function displayRowData(selectedRowIndex) {
+    const selectedRowData = rows[selectedRowIndex].split(',');
+    inputFields.forEach((inputField, index) => {
+        inputField.value = selectedRowData[index];
+    });
+}
+
+// Function to clear the form fields
+function clearFormFields() {
+    inputFields.forEach(inputField => {
+        inputField.value = '';
+    });
+}
+document.getElementById('manual-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = {
+                IAT: parseFloat(document.getElementById('IAT').value),
+                Magnitue: parseFloat(document.getElementById('Magnitue').value),
+                syn_count: parseFloat(document.getElementById('syn_count').value),
+                AVG: parseFloat(document.getElementById('AVG').value),
+                Min: parseFloat(document.getElementById('Min').value),
+                'Tot size': parseFloat(document.getElementById('Tot size').value),
+                syn_flag_number: parseFloat(document.getElementById('syn_flag_number').value),
+                Header_Length: parseFloat(document.getElementById('Header_Length').value),
+                SourceIP: document.getElementById('SourceIP').value,
+                DestinationIP: document.getElementById('DestinationIP').value,
+                Max: parseFloat(document.getElementById('Max').value),
+            };
+            try {
+                const response = await fetch('/packet', {
+                method: 'POST', // Use POST method
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+            const data = await response.json();
+                 // Extract relevant data from the response
+            const { ipAddress, attackType, timeStamp } = data;
+            
+            // Create a new object in the desired format
+            const newIntruder = {
+               ipAddress,
+               attackType,
+                timeStamp,
+                
+            };
+                // Display the JSON data in a nice format
+                //const responseElement = document.getElementById('response');
+                const intruderElement = document.getElementById('intruder-section');
+                
+                intruderElement.style.display = 'block';
+                document.getElementById('ipAddress').value = newIntruder.ipAddress;
+                document.getElementById('attackType').value = newIntruder.attackType;
+                document.getElementById('timeStamp').value = newIntruder.timeStamp;
+
+            intruderElement.scrollIntoView({ behavior: 'smooth' });// Format with two-space indentation
+            } catch (error) {
+                // Handle errors that occur during the request
+                console.error('Error:', error);
+                const responseElement = document.getElementById('response');
+                responseElement.innerHTML = '<p style="color:red">An error occurred while processing your request.</p>';
+            }
+        });
+        
+        
+        //jwt 
+       // Add an event listener for the "Create Transaction" button inside the intruder section form
+    document.getElementById('intruder-section').addEventListener('submit', async (event) => {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Hide the manual form section
+        // const manualFormSection = document.getElementById('manual-form-section');
+        // manualFormSection.style.display = 'none';
+
+        // Show the user registration form
+        const registerSection = document.getElementById('register-section');
+        registerSection.style.display = 'block';
+
+        // Automatically scroll down to the registration section
+        registerSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+
+
+
+
+    // Handle form submission for user registration
+   // Event listener for the registration form submission
+document.getElementById('registration-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const orgName = document.getElementById('orgName').value;
+
+    try {
+        // Send a POST request to the server
+        const response = await fetch('http://localhost:4000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, orgName }), // Send username and orgName to the server
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Process the response, which is expected to contain a JWT token
+        const data = await response.json();
+        const jwtToken = data.token; // Capture the JWT token
+        const message =data.message;
+        // Set the captured JWT token in the JWT Token input field
+        const jwtTokenField = document.getElementById('jwtToken');
+        const  jwtTokenSection = document.getElementById('jwtTokenField');
+        jwtTokenSection.style.display = 'block';
+        jwtTokenField.value = jwtToken;
+        const regResponsefield = document.getElementById('reg-response');
+        const registerSection = document.getElementById('register-section');
+        registerSection.style.display = 'none';
+        regResponsefield.innerHTML=`<h2 style="color: green;">${message}</h2>`;
+
+        // You can also use the JWT token for authentication in future requests.
+        jwtTokenSection.scrollIntoView({ behavior: 'smooth' });
+
+    } catch (error) {
+        // Handle any errors that occur during the request
+        console.error('Error:', error);
+        alert('An error occurred while processing your request.');
+    }
+});
+
+document.getElementById('invoke-transaction-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        // Get the JWT token from the input field
+        const jwtToken = document.getElementById('jwtToken').value;
+        const ipAddress = document.getElementById('ipAddress').value;
+        const attackType = document.getElementById('attackType').value;
+        const timeStamp = document.getElementById('timeStamp').value;
+        const formData = {
+                IAT: document.getElementById('IAT').value,
+                Magnitue: document.getElementById('Magnitue').value,
+                syn_count: document.getElementById('syn_count').value,
+                AVG: document.getElementById('AVG').value,
+                Min: document.getElementById('Min').value,
+                Tot_size: document.getElementById('Tot size').value,
+                syn_flag_number: document.getElementById('syn_flag_number').value,
+                Header_Length: document.getElementById('Header_Length').value,
+                SourceIP: document.getElementById('SourceIP').value,
+                DestinationIP: document.getElementById('DestinationIP').value,
+                Max: document.getElementById('Max').value,
+            };
+            console.log(formData);
+
+// Convert the FormData object to an array of key-value pairs
+
+            // const patternData = formData;
+        const newIntruder ={
+        fcn: "createIntrusion4",
+        peers:["peer0.org1.example.com","peer0.org2.example.com"],
+        chaincodeName:"intrusion",
+        channelName:"mychannel",
+        args:[ipAddress,attackType,timeStamp,formData.IAT,formData.Magnitue,formData.syn_count,formData.AVG,formData.Min,formData.Tot_size,formData.syn_flag_number,formData.Header_Length,formData.SourceIP,formData.DestinationIP,formData.Max]
+        };
+        console.log(newIntruder);
+
+        try {
+            // Make a POST request to the server to invoke the transaction
+            const response = await fetch('http://localhost:4000/channels/mychannel/chaincodes/intrusion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken}`, // Set the JWT token in the 'Authorization' header
+                },
+                body: JSON.stringify( newIntruder),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Process the response
+            const data = await response.json();
+
+            // Display the response or perform further actions
+            const transactionResponse = document.getElementById('transaction-response');
+            if(data.result.tx_id){
+            transactionResponse.innerHTML = `<p style="color:#000000;">Succussefully added intruder to Block chain       <br>      Transaction Id: ${JSON.stringify(data.result.tx_id || data)}</p>
+            <a href="http://localhost:5984/_utils/#database/mychannel_intrusion/_all_docs">click here to see the data in dataBase</a>`;
+
+            }
+            else{
+            transactionResponse.innerHTML = `<p style="color:#000000;">Transaction Result: ${JSON.stringify(data.errerData || data)}</p>`;
+            }
+        } catch (error) {
+            // Handle any errors that occur during the request
+            console.error('Error:', error);
+            const transactionResponse = document.getElementById('transaction-response');
+            transactionResponse.innerHTML = '<p style="color:red">An error occurred while processing the transaction.</p>';
+        }
+
+    });    
+ 
+</script>

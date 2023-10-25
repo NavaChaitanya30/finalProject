@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulation</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Additional CSS for the simulation section */
+        .simulation-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .simulation-box {
+            width: calc(33.33% - 20px); /* Adjust the width based on your layout */
+            background-color: #000000c4;
+            color: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .simulation-box h3 {
+            font-size: 1.5rem;
+        }
+
+        .simulation-box p {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0073e6;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0055a5;
+        }
+
+        .background-section {
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Anomaly-Based Intrusion Detection System</h1>
+        <h2>Using Ensemble Machine Learning and Blockchain</h2>
+    </header>
+    <section id="simulation">
+        <h2>Simulation and Working</h2>
+        <p>We'll provide a brief overview of how our system simulates and works:</p>
+        
+        <!-- Responsive containers for simulation options -->
+        <div class="simulation-container" id="simulation-container">
+            <!-- Option 1: Deploy with PCAP files -->
+            <div class="simulation-box">
+                <h3>Deploy with PCAP Files</h3>
+                <p>Upload PCAP files for analysis and intrusion detection.</p>
+                <a href="#" class="button">Upload PCAP Files</a>
+            </div>
+            
+            <!-- Option 2: Deploy with a dataset -->
+            <div class="simulation-box">
+                <h3>Deploy with a Dataset</h3>
+                <p>Use a pre-defined dataset for intrusion detection.</p>
+                <a href="/dataset" class="button"  id="use-dataset-button">Use Dataset</a>
+            </div>
+            
+            <!-- Option 3: Manually fill the form -->
+            <div class="simulation-box">
+                <h3>Manual Form Submission</h3>
+                <p>Fill in required fields for intrusion detection.</p>
+                <a href="/form" class="button">Fill the Form</a>
+            </div>
+        </div>
+        
+        
+    </section>
+    <section >
+        <!-- Background work sections for each option -->
+        <div class="background-section">
+            <h3>Background Work for Deploying with PCAP Files</h3>
+            <p>Explain the background work and processes involved when deploying with PCAP files.</p>
+        </div>
+        
+        <div class="background-section">
+            <h3>Background Work for Deploying with a Dataset</h3>
+            <p>Detail the background work and processes related to deploying with a pre-defined dataset.</p>
+        </div>
+        
+        <div class="background-section">
+            <h3>Background Work for Manual Form Submission</h3>
+            <p>Elaborate on the background work and processes when users manually fill the form for intrusion detection.</p>
+        </div>
+    </section>
+    
+</body>
+</html>
